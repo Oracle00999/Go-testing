@@ -39,7 +39,7 @@ func rootHandler(w http.ResponseWriter, _ *http.Request) {
 	writeJSON(w, http.StatusOK, response{
 		"app":     appName,
 		"release": release,
-		"message": "Go API deployed through Portiq auto-detection",
+		"message": "Go API deployed through Portiq auto-detection (pushed)",
 		"env": response{
 			"apiKeyConfigured": apiKey != "",
 			"goEnv":            goEnv,
