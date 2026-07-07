@@ -11,10 +11,11 @@ import (
 type response map[string]any
 
 var (
-	appName = getEnv("APP_NAME", "Portiq Go Test API")
-	apiKey  = os.Getenv("API_KEY")
-	release = getEnv("RELEASE", "go-auto-detect-001")
-	port    = getEnv("PORT", "3000")
+	appName = requireEnv("APP_NAME")
+	apiKey  = requireEnv("API_KEY")
+	goEnv   = requireEnv("GO_ENV")
+	release = requireEnv("RELEASE")
+	port    = requireEnv("PORT")
 )
 
 func main() {
@@ -41,7 +42,7 @@ func rootHandler(w http.ResponseWriter, _ *http.Request) {
 		"message": "Go API deployed through Portiq auto-detection",
 		"env": response{
 			"apiKeyConfigured": apiKey != "",
-			"goEnv":            getEnv("GO_ENV", "production"),
+			"goEnv":            goEnv,
 			"port":             port,
 		},
 		"routes": []string{
@@ -116,10 +117,10 @@ func writeJSON(w http.ResponseWriter, statusCode int, payload response) {
 	}
 }
 
-func getEnv(key string, fallback string) string {
+func requireEnv(key string) string {
 	value := os.Getenv(key)
 	if value == "" {
-		return fallback
+		log.Fatalf("missing required environment variable: %s", key)
 	}
 
 	return value
