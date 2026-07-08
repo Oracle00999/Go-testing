@@ -1,6 +1,6 @@
 # Portiq Go Test API
 
-This project exists only to test Portiq, the deployment platform being built locally.
+This project exists only to test Portiq, the deployment platform being built locally by me.
 
 It is a small Go HTTP API used to verify Go auto-detection, generated Dockerfiles, required environment variables, health checks, runtime logs, and redeploys.
 
